@@ -1,19 +1,21 @@
-function Login() {
-  // Function to handle the form submission
-  function handleFormSubmit(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
+import { useState } from 'react';
 
-    // Collect the username and password from the form
-    const userData = {
-      username: event.target.username.value, // Get the username value
-      password: event.target.password.value, // Get the password value
-    };
-    // Log the user data to the console
-    console.log(userData);
-    // Display user data in an alert
-    alert(JSON.stringify(userData)); // Converts user data to a JSON string
+function Login() {
+  // Create a state variable 'data' to hold username and password.
+  const [data, setData] = useState({ username: '', password: '' });
+
+  // Function to handle form submission.
+  function handleFormSubmit(event) {
+    event.preventDefault(); // Prevent the default form submission behavior.
+    console.log(data); // Log the 'data' object to the console.
+    alert(JSON.stringify(data)); // Display an alert with the 'data' object as a JSON string.
   }
-  // Rendering the login form
+
+  // Function to handle input changes and update 'data'.
+  function handleInputChange(e, name) {
+    setData({ ...data, [name]: e.target.value }); // Update 'data' with the new value of the specified 'name' field.
+  }
+
   return (
     <>
       <h1>Login Form</h1>
@@ -22,14 +24,16 @@ function Login() {
           Username:
           <input
             type="text"
-            name="username"
+            value={data.username}
+            onChange={(e) => handleInputChange(e, 'username')}
           />
         </label>
         <label>
           Password:
           <input
             type="password"
-            name="password"
+            value={data.password}
+            onChange={(e) => handleInputChange(e, 'password')}
           />
         </label>
         <button type="submit">login</button>
